@@ -19,7 +19,7 @@ This is a full-stack application with three main components: client (frontend), 
 ### 1. Clone the Repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/JinzoTun/hackathon.git
 cd hackathon
 ```
 
