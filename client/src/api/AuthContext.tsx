@@ -108,7 +108,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     });
 
     if (res.data.success) {
-      const accessToken = res.data.data.token;
+      const accessToken = res.data.data.accessToken;
       setToken(accessToken);
       localStorage.setItem('token', accessToken);
       fetchUser();

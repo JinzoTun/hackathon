@@ -84,8 +84,25 @@ export const signUp = async (req, res, next) => {
       emailTokenExpires: Date.now() + 10 * 60 * 1000,
     }],
       { session });
+    
+    // Generate both access and refresh tokens like in signIn
+    const accessToken = generateAccessToken(newUsers[0]);
+    const refreshToken = generateRefreshToken(newUsers[0]);
 
-    const token = jwt.sign({ userId: newUsers[0]._id }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
+    // Get user device info
+    const userAgent = req.headers["user-agent"];
+    const ipAddress = req.ip;
+
+    // Store refresh token in the database
+    await RefreshToken.create({ userId: newUsers[0]._id, token: refreshToken, userAgent, ipAddress });
+
+    // Store refresh token securely in HTTP-only cookie
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: NODE_ENV === "production",
+      sameSite: "Lax",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
 
     // Send email verification code
     const transporter = nodemailer.createTransport({
@@ -114,7 +131,7 @@ export const signUp = async (req, res, next) => {
       success: true,
       message: 'User created successfully',
       data: {
-        token,
+        accessToken,
         user: newUsers[0],
       }
     })
@@ -131,7 +148,7 @@ export const signUp = async (req, res, next) => {
 export const signIn = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    console.log(email, password);
+
     const user = await User.findOne({ email });
 
     if (!user) {
