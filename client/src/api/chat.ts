@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { API } from '@/config/env';
 
-// Get base API URL from environment variables or default to localhost
-const API_BASE = import.meta.env.VITE_API_URL;
+// Get base API URL 
+const API_BASE = API;
 const LIVEKIT_API_URL = `${API_BASE}/livekit`;
 
 /**
