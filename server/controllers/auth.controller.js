@@ -91,7 +91,7 @@ export const signUp = async (req, res, next) => {
 
     // Get user device info
     const userAgent = req.headers["user-agent"];
-    const ipAddress = req.ip;
+    const ipAddress = req.headers['x-forwarded-for'] || req.ip; // Handle proxy servers
 
     // Store refresh token in the database
     await RefreshToken.create({ userId: newUsers[0]._id, token: refreshToken, userAgent, ipAddress });
@@ -168,7 +168,7 @@ export const signIn = async (req, res, next) => {
 
     // Get user device info
     const userAgent = req.headers["user-agent"];  // Browser info
-    const ipAddress = req.ip;
+    const ipAddress = req.headers['x-forwarded-for'] || req.ip; // Handle proxy servers
 
     // Store refresh token in the database
     await RefreshToken.create({ userId: user._id, token: refreshToken, userAgent, ipAddress });
@@ -239,10 +239,13 @@ export const refreshAccessToken = async (req, res, next) => {
 
     // Check if the request comes from the same device
     const userAgent = req.headers["user-agent"];
-    const ipAddress = req.ip;
-
-    if (storedToken.userAgent !== userAgent || storedToken.ipAddress !== ipAddress) {
-      await RefreshToken.deleteOne({ token: refreshToken }); // Delete stolen token
+    // Get client's IP address, considering proxies/load balancers
+    const ipAddress = req.headers['x-forwarded-for'] || req.ip;
+    
+    // Only check user agent to prevent false positives with changing IPs
+    // You can enable full checking again if security concerns outweigh convenience
+    if (storedToken.userAgent !== userAgent) {
+      await RefreshToken.deleteOne({ token: refreshToken }); // Delete suspicious token
       res.clearCookie("refreshToken");
       const error = new Error("Device mismatch. Please log in again.");
       error.statusCode = 403;
@@ -261,6 +264,7 @@ export const refreshAccessToken = async (req, res, next) => {
       httpOnly: true,
       secure: NODE_ENV === "production",
       sameSite: "Lax",
+      maxAge: 7 * 24 * 60 * 60 * 1000, // Add maxAge to match other cookie settings
     });
 
     res.status(200).json({
