@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-primary: 'Inter', sans-serif;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(0.99 0.025 105); /* Soft cream background */
+  --foreground: oklch(0.18 0.06 130); /* Deep moss green */
+  --card: oklch(0.97 0.02 102);
+  --card-foreground: oklch(0.18 0.06 130);
+  --popover: oklch(0.97 0.02 102);
+  --popover-foreground: oklch(0.18 0.06 130);
+  --primary: oklch(0.58 0.2 145); /* Vibrant spring green */
+  --primary-foreground: oklch(0.99 0.01 100);
+  --secondary: oklch(0.78 0.18 85); /* Ripe wheat gold */
+  --secondary-foreground: oklch(0.18 0.06 130);
+  --muted: oklch(0.92 0.03 105);
+  --muted-foreground: oklch(0.45 0.05 120);
+  --accent: oklch(0.75 0.12 95); /* Rich fertile soil */
+  --accent-foreground: oklch(0.18 0.06 130);
+  --destructive: oklch(0.62 0.25 25); /* Fresh tomato red */
+  --border: oklch(0.85 0.05 100);
+  --input: oklch(0.85 0.05 100);
+  --ring: oklch(0.58 0.2 145); /* Match primary */
+  --chart-1: oklch(0.58 0.2 145); /* Spring green */
+  --chart-2: oklch(0.78 0.18 85); /* Wheat gold */
+  --chart-3: oklch(0.55 0.12 35); /* Soil brown */
+  --chart-4: oklch(0.72 0.18 160); /* Fresh leaf green */
+  --chart-5: oklch(0.68 0.2 60); /* Pumpkin orange */
+  --sidebar: oklch(0.58 0.2 145); /* Spring green sidebar */
+  --sidebar-foreground: oklch(0.99 0.01 100);
+  --sidebar-primary: oklch(0.75 0.12 95);
+  --sidebar-primary-foreground: oklch(0.18 0.06 130);
+  --sidebar-accent: oklch(0.78 0.18 85);
+  --sidebar-accent-foreground: oklch(0.18 0.06 130);
+  --sidebar-border: oklch(0.48 0.12 145);
+  --sidebar-ring: oklch(0.75 0.12 95);
+}
+
+.dark {
+  --background: rgba(
+    19,
+    38,
+    18,
+    0.97
+  ); /* Deeper night sky for better contrast */
+  --foreground: oklch(
+    0.96 0.03 90
+  ); /* Brighter moonlit wheat for better readability */
+  --card: oklch(0.22 0.05 128); /* Slightly richer card background */
+  --card-foreground: oklch(
+    0.98 0.04 90
+  ); /* Brighter text for better legibility */
+  --popover: oklch(0.22 0.05 128);
+  --popover-foreground: oklch(0.98 0.04 90);
+  --primary: oklch(
+    0.68 0.24 145
+  ); /* Enhanced moonlit leaf green for better visibility */
+  --primary-foreground: oklch(0.99 0.02 115);
+  --secondary: oklch(0.62 0.22 78); /* Richer amber harvest glow */
+  --secondary-foreground: oklch(0.15 0.04 125);
+  --muted: oklch(0.25 0.04 138); /* Slightly brighter muted backgrounds */
+  --muted-foreground: oklch(
+    0.85 0.05 92
+  ); /* Improved contrast for muted text */
+  --accent: oklch(0.38 0.14 98); /* Enhanced fertile dark earth */
+  --accent-foreground: oklch(0.98 0.04 88);
+  --destructive: oklch(0.65 0.3 25); /* More vibrant ripe berry red */
+  --border: oklch(0.3 0.06 130 / 50%); /* Slightly more visible borders */
+  --input: oklch(0.3 0.06 130 / 50%);
+  --ring: oklch(0.68 0.24 145); /* Match primary */
+  --chart-1: oklch(0.68 0.24 145); /* Enhanced moonlit leaf green */
+  --chart-2: oklch(0.7 0.24 78); /* Enhanced amber harvest glow */
+  --chart-3: oklch(0.47 0.14 42); /* Richer compost */
+  --chart-4: oklch(0.75 0.27 157); /* Vibrant dewy leaf */
+  --chart-5: oklch(0.62 0.26 60); /* Richer harvest pumpkin */
+  --sidebar: oklch(0.22 0.05 127); /* Slightly richer sidebar */
+  --sidebar-foreground: oklch(
+    0.98 0.04 88
+  ); /* Brighter text for better legibility */
+  --sidebar-primary: oklch(0.67 0.24 144); /* Enhanced sidebar primary */
+  --sidebar-primary-foreground: oklch(0.99 0.02 115);
+  --sidebar-accent: oklch(0.37 0.14 96); /* Enhanced sidebar accent */
+  --sidebar-accent-foreground: oklch(0.98 0.04 88);
+  --sidebar-border: oklch(
+    0.3 0.06 128 / 50%
+  ); /* Slightly more defined borders */
+  --sidebar-ring: oklch(0.67 0.24 144);
+}
+
+@layer base {
+  * {
+    @apply font-primary border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

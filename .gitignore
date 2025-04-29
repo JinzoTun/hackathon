@@ -1,0 +1,4 @@
+.env.local
+.env.development.local
+node_modules
+uploads
